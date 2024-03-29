@@ -38,7 +38,7 @@ public class CoinPositionScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
 
-        //  Debug.Log("Col|" + col.transform.name + "::" + transform.name);
+          Debug.Log("Col|" + col.transform.name + "::" + transform.name);
         if (transform.name == "Fuel" && FuelController.Instance != null)
         {
             transform.GetComponent<Animator>().enabled = true;
