@@ -31,11 +31,11 @@ public class FuelController : MonoBehaviour
 
     void OnEnable()
     {
-        CoinPositionScript.FuelFullEvent += SetFuelFull;
+       // CoinPositionScript.FuelFullEvent += SetFuelFull;
     }
     void OnDisable()
     {
-        CoinPositionScript.FuelFullEvent -= SetFuelFull;
+        //CoinPositionScript.FuelFullEvent -= SetFuelFull;
     }
     void Start()
     {
