@@ -26,9 +26,9 @@ public class DriveCar : MonoBehaviour
 
 
 #if KK_UNITY_WINDOWS || UNITY_EDITOR
-        CheckingMousepos();
+        //CheckingMousepos();
 #elif KK_UNITY_ANDROID
-        CheckingTouch();
+      //  CheckingTouch();
 #endif
     }
 
