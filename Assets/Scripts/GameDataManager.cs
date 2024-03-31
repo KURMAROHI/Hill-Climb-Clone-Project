@@ -47,7 +47,7 @@ public class GameDataManager : MonoBehaviour
                 //         PlayerdirectoryInfo.Create();
                 // }
 
-#if UNITY_KK_WINDOWS
+#if KK_UNITY_WINDOWS || UNITY_EDITOR
         Debug.LogError("Application.path|" + Application.persistentDataPath);
 #elif KK_UNITY_ANDROID
                 Debug.LogError("Application.path|" + Application.persistentDataPath);
