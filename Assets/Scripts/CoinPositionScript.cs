@@ -16,7 +16,7 @@ public class CoinPositionScript : MonoBehaviour
         if (HitCollider.transform != null)
         {
             // transform.position = new Vector3(transform.position.x, HitCollider.transform.position.y + 1,)
-            Debug.LogError("Name|" + HitCollider.transform.name + "::" + HitCollider.point);
+           // Debug.LogError("Name|" + HitCollider.transform.name + "::" + HitCollider.point);
             transform.position = new Vector3(transform.position.x, HitCollider.point.y + 3, 0f);
         }
     }
@@ -25,7 +25,7 @@ public class CoinPositionScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
 
-        Debug.Log("Col|" + col.transform.name + "::" + transform.name);
+        //Debug.Log("Col|" + col.transform.name + "::" + transform.name);
         if (transform.name == "Fuel" && FuelController.Instance != null)
         {
             transform.GetComponent<Animator>().enabled = true;

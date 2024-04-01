@@ -54,9 +54,10 @@ public class CoinController : MonoBehaviour
         }
     }
 
-    int oldpos = 90;
+   // int oldpos = 90;
     //  [ContextMenu("Coingenerator")]
-    public void CoinGenerator()
+    public float LastCoinPos=0f;
+    public void CoinGenerator(float oldpos=90f)
     {
         int NoofCoins = UnityEngine.Random.Range(5, 10);
         for (int i = 0; i < NoofCoins; i++)
@@ -69,6 +70,8 @@ public class CoinController : MonoBehaviour
             float yValue = parentobject.transform.position.y;
             Coin.transform.localPosition = new Vector3(oldpos, yValue + 10, 0f);
         }
+
+        LastCoinPos=oldpos;
     }
 
 }

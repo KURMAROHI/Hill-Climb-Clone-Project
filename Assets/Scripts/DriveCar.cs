@@ -12,56 +12,122 @@ public class DriveCar : MonoBehaviour
     [SerializeField] float Speed = 200f;
     [SerializeField] float RotationSpeed = 100f;
 
-    private float MoveInput;
+    [SerializeField] float MoveInput;
+    [SerializeField] float AccelaratorInput, BreakInput;
+
+    int FuelCount = 1;
+    float oldFuelPos = 90f, oldcoinpos = 92f;
+
     void Start()
     {
-
+        if (CoinController.Instance != null)
+        {
+            CoinController.Instance.CoinGenerator(92f);
+        }
+        if (FuelController.Instance != null)
+        {
+            FuelController.Instance.FuelGeneretor();
+        }
     }
 
 
     void Update()
     {
-        MoveInput = Input.GetAxisRaw("Horizontal");
-
-
-
-#if KK_UNITY_WINDOWS || UNITY_EDITOR
+        // if (Input.GetMouseButton(0))
+        // {
+        //     StartCoroutine(TakeScreenShot());
+        // }
+#if KK_UNITY_WINDOWS
         //CheckingMousepos();
+        MoveInput = Input.GetAxisRaw("Horizontal");
 #elif KK_UNITY_ANDROID
-      //  CheckingTouch();
+        //  CheckingTouch();
+        CheckInput();
 #endif
+
+        if (transform.position.x > oldFuelPos && FuelController.Instance != null && FuelController.Instance.ISfuelAvilable)
+        {
+            FuelCount++;
+            oldFuelPos = oldFuelPos * FuelCount;
+            FuelController.Instance.FuelGeneretor(oldFuelPos);
+        }
+        if (transform.position.x > oldcoinpos / 2 && CoinController.Instance != null &&
+            FuelController.Instance != null && FuelController.Instance.ISfuelAvilable)
+        {
+            oldcoinpos = oldcoinpos + 50f;
+            CoinController.Instance.CoinGenerator(oldcoinpos);
+        }
+    }
+
+
+
+    void CheckInput()
+    {
+        if (GameUIController.Instance != null)
+        {
+            if (GameUIController.Instance.iSAccelratorApplied)
+            {
+                AccelaratorInput = -1f;
+            }
+            if (GameUIController.Instance.isbreakApplied)
+            {
+                BreakInput = 1f;
+            }
+
+        }
     }
 
     void FixedUpdate()
     {
+
+#if KK_UNITY_WINDOWs
         BackTire.AddTorque(-MoveInput * Speed * Time.fixedDeltaTime);
         FrontTire.AddTorque(-MoveInput * Speed * Time.fixedDeltaTime);
         Car.AddTorque(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
-    }
+#elif KK_UNITY_ANDROID
 
-    void CheckingMousepos()
-    {
-        if (Input.mousePosition.x < (Screen.width / 2f - 100f) && Input.mousePosition.x > 0f)
+#endif
+        if (GameUIController.Instance != null && FuelController.Instance != null)
         {
-            // Debug.LogError("Left half|" + Input.mousePosition.x);
-
-        }
-        else if (Input.mousePosition.x > Screen.width / 2 + 100f && Input.mousePosition.x < Screen.width)
-        {
-            // Debug.LogError("Right half|" + Input.mousePosition.x);
-        }
-    }
-
-    void CheckingTouch()
-    {
-        Touch touch = Input.GetTouch(0);
-        if (touch.position.x > 0f && touch.position.x < (Screen.width / 2 - 100f))
-        {
-
-        }
-        else if (touch.position.x > Screen.width / 2 + 100f && touch.position.x < Screen.width)
-        {
+            if (GameUIController.Instance.iSAccelratorApplied && FuelController.Instance.ISfuelAvilable)
+            {
+                BackTire.AddTorque(AccelaratorInput * Speed * Time.fixedDeltaTime);
+                FrontTire.AddTorque(AccelaratorInput * Speed * Time.fixedDeltaTime);
+                Car.AddTorque(AccelaratorInput * RotationSpeed * Time.fixedDeltaTime);
+            }
+            if (GameUIController.Instance.isbreakApplied && FuelController.Instance.ISfuelAvilable)
+            {
+                BackTire.AddTorque(BreakInput * Speed * Time.fixedDeltaTime);
+                FrontTire.AddTorque(BreakInput - MoveInput * Speed * Time.fixedDeltaTime);
+                Car.AddTorque(BreakInput * RotationSpeed * Time.fixedDeltaTime);
+            }
 
         }
     }
+
+    // void CheckingMousepos()
+    // {
+    //     if (Input.mousePosition.x < (Screen.width / 2f - 100f) && Input.mousePosition.x > 0f)
+    //     {
+    //         // Debug.LogError("Left half|" + Input.mousePosition.x);
+
+    //     }
+    //     else if (Input.mousePosition.x > Screen.width / 2 + 100f && Input.mousePosition.x < Screen.width)
+    //     {
+    //         // Debug.LogError("Right half|" + Input.mousePosition.x);
+    //     }
+    // }
+
+    // void CheckingTouch()
+    // {
+    //     Touch touch = Input.GetTouch(0);
+    //     if (touch.position.x > 0f && touch.position.x < (Screen.width / 2 - 100f))
+    //     {
+
+    //     }
+    //     else if (touch.position.x > Screen.width / 2 + 100f && touch.position.x < Screen.width)
+    //     {
+
+    //     }
+    // }
 }
