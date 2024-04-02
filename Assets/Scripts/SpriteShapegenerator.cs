@@ -14,7 +14,7 @@ public class SpriteShapegenerator : MonoBehaviour
 
     [SerializeField] float NoiseStep = 0.5f;
 
-    [Range(1f, 4f)]
+    [Range(1f, 10f)]
     [SerializeField] float _lefttangetvalue = 1f, _RightTangetValue = 1f;
 
     private Vector3 Lastpos;
