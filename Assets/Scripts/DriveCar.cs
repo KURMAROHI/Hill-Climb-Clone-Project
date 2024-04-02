@@ -33,10 +33,15 @@ public class DriveCar : MonoBehaviour
 
     void Update()
     {
-        // if (Input.GetMouseButton(0))
-        // {
-        //     StartCoroutine(TakeScreenShot());
-        // }
+        if (Input.GetMouseButton(0))
+        {
+            StartCoroutine(TakeScreenShot());
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            StartCoroutine(TakeScreenShotUsingInternalMethod());
+        }
 #if KK_UNITY_WINDOWS
         //CheckingMousepos();
         MoveInput = Input.GetAxisRaw("Horizontal");
@@ -105,29 +110,26 @@ public class DriveCar : MonoBehaviour
         }
     }
 
-    // void CheckingMousepos()
-    // {
-    //     if (Input.mousePosition.x < (Screen.width / 2f - 100f) && Input.mousePosition.x > 0f)
-    //     {
-    //         // Debug.LogError("Left half|" + Input.mousePosition.x);
+//[SerializeField] int _Width = Screen.width, _Height = Screen.height;
+    IEnumerator TakeScreenShot()
+    {
+        yield return new WaitForEndOfFrame();
+        int _Width = Screen.width;
+        int  _Height = Screen.height;
+        Texture2D ScreenShot = new Texture2D(1136, 640, TextureFormat.ARGB32, false);
+        Rect rect = new Rect(0, 0, _Width, _Height);
+        ScreenShot.ReadPixels(rect, 0, 0);
+        ScreenShot.Apply();
 
-    //     }
-    //     else if (Input.mousePosition.x > Screen.width / 2 + 100f && Input.mousePosition.x < Screen.width)
-    //     {
-    //         // Debug.LogError("Right half|" + Input.mousePosition.x);
-    //     }
-    // }
+        byte[] bytearray = ScreenShot.EncodeToPNG();
+        System.IO.File.WriteAllBytes(Application.dataPath + "/ScreenShot.png", bytearray);
+        Debug.LogError("Taken Screen Shot");
+    }
 
-    // void CheckingTouch()
-    // {
-    //     Touch touch = Input.GetTouch(0);
-    //     if (touch.position.x > 0f && touch.position.x < (Screen.width / 2 - 100f))
-    //     {
-
-    //     }
-    //     else if (touch.position.x > Screen.width / 2 + 100f && touch.position.x < Screen.width)
-    //     {
-
-    //     }
-    // }
+    IEnumerator TakeScreenShotUsingInternalMethod()
+    {
+        yield return new WaitForEndOfFrame();
+        ScreenCapture.CaptureScreenshot("ScreenShot1.png");
+        Debug.LogError("TakeScreenShotUsingInternalMethod");
+    }
 }
