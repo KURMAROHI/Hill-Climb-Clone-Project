@@ -35,12 +35,12 @@ public class DriveCar : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            StartCoroutine(TakeScreenShot());
+          //  StartCoroutine(TakeScreenShot());
         }
 
         if (Input.GetMouseButton(1))
         {
-            StartCoroutine(TakeScreenShotUsingInternalMethod());
+           // StartCoroutine(TakeScreenShotUsingInternalMethod());
         }
 #if KK_UNITY_WINDOWS
         //CheckingMousepos();
