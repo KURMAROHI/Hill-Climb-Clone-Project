@@ -44,7 +44,7 @@ public class CoinController : MonoBehaviour
 
     public void CountingCoins(int Amount = 5)
     {
-        Debug.Log("Counting Coins");
+       // Debug.Log("Counting Coins");
         if (GameDataManager.Instance != null)
         {
            // Debug.Log("TotalAmount|" + GameDataManager.Instance._playerData.TotalAmount);

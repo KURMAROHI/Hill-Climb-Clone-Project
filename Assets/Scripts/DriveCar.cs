@@ -88,7 +88,8 @@ public class DriveCar : MonoBehaviour
 #if KK_UNITY_WINDOWs
         BackTire.AddTorque(-MoveInput * Speed * Time.fixedDeltaTime);
         FrontTire.AddTorque(-MoveInput * Speed * Time.fixedDeltaTime);
-        Car.AddTorque(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
+       // Car.AddTorque(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
+        Car.AddForce(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
 #elif KK_UNITY_ANDROID
 
 #endif

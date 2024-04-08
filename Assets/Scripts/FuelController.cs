@@ -54,7 +54,7 @@ public class FuelController : MonoBehaviour
         }
         FuelLowSignal.alpha = 0f;
         isfading = false;
-        Debug.LogError("Fuel Full Event Calling");
+       // Debug.LogError("Fuel Full Event Calling");
         CurrentFuelAmount = MaxFuelAmount;
         UpdateFuelUI();
     }

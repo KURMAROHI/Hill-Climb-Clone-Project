@@ -39,7 +39,7 @@ public class CoinPositionScript : MonoBehaviour
             transform.GetComponent<CircleCollider2D>().enabled = false;
             int.TryParse(transform.name, out int Amount);
             transform.GetComponent<Animator>().Play(Amount.ToString());
-            Debug.Log("Amount|" + Amount.ToString());
+           // Debug.Log("Amount|" + Amount.ToString());
 
             //  CoinCountEvent?.Invoke(Amount);
             CoinController.Instance.CountingCoins(Amount);

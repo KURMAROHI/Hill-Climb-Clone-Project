@@ -26,7 +26,7 @@ public class GameUIController : MonoBehaviour
 
     public void AcceleratorBreakPointerDown(BaseEventData data)
     {
-        Debug.Log("onpointer Down");
+       // Debug.Log("onpointer Down");
         PointerEventData _pointerEventData = (PointerEventData)(data as BaseEventData);
 
         if (_pointerEventData.position.x > 0f && _pointerEventData.position.x < (Screen.width / 2 - 100f))
@@ -50,7 +50,7 @@ public class GameUIController : MonoBehaviour
 
     public void AccleratorBreakPointerUp(BaseEventData data)
     {
-        Debug.Log("onpointer up");
+       // Debug.Log("onpointer up");
         PointerEventData _pointerEventData = (PointerEventData)(data as BaseEventData);
 
         if (_pointerEventData.position.x > 0f && _pointerEventData.position.x < (Screen.width / 2 - 100f))
