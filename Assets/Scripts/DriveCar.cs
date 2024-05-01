@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 
@@ -18,6 +19,12 @@ public class DriveCar : MonoBehaviour
     int FuelCount = 1;
     float oldFuelPos = 90f, oldcoinpos = 92f;
 
+    [SerializeField] float maxSpeedofCar = 10f;
+    [SerializeField] float Accelaration = 10f;
+    [SerializeField] float deceleration = 10f;
+
+
+
     void Start()
     {
         if (CoinController.Instance != null)
@@ -35,12 +42,12 @@ public class DriveCar : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-          //  StartCoroutine(TakeScreenShot());
+            //  StartCoroutine(TakeScreenShot());
         }
 
         if (Input.GetMouseButton(1))
         {
-           // StartCoroutine(TakeScreenShotUsingInternalMethod());
+            // StartCoroutine(TakeScreenShotUsingInternalMethod());
         }
 #if KK_UNITY_WINDOWS
         //CheckingMousepos();
@@ -72,23 +79,26 @@ public class DriveCar : MonoBehaviour
         {
             if (GameUIController.Instance.iSAccelratorApplied)
             {
-                AccelaratorInput = -1f;
+                AccelaratorInput = 1f;
             }
             if (GameUIController.Instance.isbreakApplied)
             {
-                BreakInput = 1f;
+                BreakInput = -1f;
             }
 
         }
     }
 
+    [Header("Distance TO move Back variable")]
+    [SerializeField] float DistanceMovedback = 50f;
+    float currentposition = 50f;
     void FixedUpdate()
     {
 
 #if KK_UNITY_WINDOWs
         BackTire.AddTorque(-MoveInput * Speed * Time.fixedDeltaTime);
         FrontTire.AddTorque(-MoveInput * Speed * Time.fixedDeltaTime);
-       // Car.AddTorque(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
+       //Car.AddTorque(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
         Car.AddForce(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
 #elif KK_UNITY_ANDROID
 
@@ -97,26 +107,46 @@ public class DriveCar : MonoBehaviour
         {
             if (GameUIController.Instance.iSAccelratorApplied && FuelController.Instance.ISfuelAvilable)
             {
-                BackTire.AddTorque(AccelaratorInput * Speed * Time.fixedDeltaTime);
-                FrontTire.AddTorque(AccelaratorInput * Speed * Time.fixedDeltaTime);
-                Car.AddTorque(AccelaratorInput * RotationSpeed * Time.fixedDeltaTime);
+                // BackTire.AddTorque(AccelaratorInput * Speed * Time.fixedDeltaTime);
+                // FrontTire.AddTorque(AccelaratorInput * Speed * Time.fixedDeltaTime);
+                // Car.AddTorque(AccelaratorInput * RotationSpeed * Time.fixedDeltaTime);
+                float forwardForce = AccelaratorInput * Accelaration * Time.fixedDeltaTime;
+                BackTire.AddForce(forwardForce * transform.right);
+                FrontTire.AddForce(forwardForce * transform.right);
+                Car.AddForce(forwardForce * transform.right);
+                Debug.LogError("forwardForce|" + forwardForce + "|velocity|" + BackTire.velocity + "::" + FrontTire.velocity + "::" + Car.velocity);
+                //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
+                BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+                FrontTire.velocity = Vector2.ClampMagnitude(FrontTire.velocity, maxSpeedofCar);
+                Car.velocity = Vector2.ClampMagnitude(Car.velocity, maxSpeedofCar);
+                currentposition = transform.position.x;
+
             }
             if (GameUIController.Instance.isbreakApplied && FuelController.Instance.ISfuelAvilable)
             {
-                BackTire.AddTorque(BreakInput * Speed * Time.fixedDeltaTime);
-                FrontTire.AddTorque(BreakInput - MoveInput * Speed * Time.fixedDeltaTime);
-                Car.AddTorque(BreakInput * RotationSpeed * Time.fixedDeltaTime);
+                // BackTire.AddTorque(BreakInput * Speed * Time.fixedDeltaTime);
+                // FrontTire.AddTorque(BreakInput - MoveInput * Speed * Time.fixedDeltaTime);
+                // Car.AddTorque(BreakInput * RotationSpeed * Time.fixedDeltaTime);
+
+                float breakForce = BreakInput * Accelaration * Time.fixedDeltaTime;
+                BackTire.AddForce(breakForce * transform.right);
+                FrontTire.AddForce(breakForce * transform.right);
+                //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
+                BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+                FrontTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+
             }
 
         }
     }
 
-//[SerializeField] int _Width = Screen.width, _Height = Screen.height;
+
+    //[SerializeField] int _Width = Screen.width, _Height = Screen.height;
     IEnumerator TakeScreenShot()
     {
         yield return new WaitForEndOfFrame();
         int _Width = Screen.width;
-        int  _Height = Screen.height;
+        int _Height = Screen.height;
         Texture2D ScreenShot = new Texture2D(1136, 640, TextureFormat.ARGB32, false);
         Rect rect = new Rect(0, 0, _Width, _Height);
         ScreenShot.ReadPixels(rect, 0, 0);
