@@ -1,6 +1,7 @@
 
 using System;
 using UnityEngine;
+using DG.Tweening;
 
 public class CoinPositionScript : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class CoinPositionScript : MonoBehaviour
         if (HitCollider.transform != null)
         {
             // transform.position = new Vector3(transform.position.x, HitCollider.transform.position.y + 1,)
-           // Debug.LogError("Name|" + HitCollider.transform.name + "::" + HitCollider.point);
+            // Debug.LogError("Name|" + HitCollider.transform.name + "::" + HitCollider.point);
             transform.position = new Vector3(transform.position.x, HitCollider.point.y + 3, 0f);
         }
     }
@@ -28,8 +29,10 @@ public class CoinPositionScript : MonoBehaviour
         //Debug.Log("Col|" + col.transform.name + "::" + transform.name);
         if (transform.name == "Fuel" && FuelController.Instance != null)
         {
-            transform.GetComponent<Animator>().enabled = true;
-            //  FuelFullEvent?.Invoke();
+          //  transform.GetComponent<Animator>().enabled = true;
+            transform.DOMoveY(transform.position.y + 2.5f, 0.4f).SetEase(Ease.Linear);
+            transform.GetChild(0).GetComponent<SpriteRenderer>().DOFade(0f, 0.7f).SetDelay(0.1f).SetEase(Ease.Linear);
+
 
             FuelController.Instance.SetFuelFull();
 
@@ -38,10 +41,10 @@ public class CoinPositionScript : MonoBehaviour
         {
             transform.GetComponent<CircleCollider2D>().enabled = false;
             int.TryParse(transform.name, out int Amount);
-            transform.GetComponent<Animator>().Play(Amount.ToString());
-           // Debug.Log("Amount|" + Amount.ToString());
+            // transform.GetComponent<Animator>().Play(Amount.ToString());
+            transform.DOMoveY(transform.position.y + 4f, 0.4f).SetEase(Ease.Linear);
+            transform.GetChild(0).GetComponent<SpriteRenderer>().DOFade(0f, 0.7f).SetDelay(0.1f).SetEase(Ease.Linear);
 
-            //  CoinCountEvent?.Invoke(Amount);
             CoinController.Instance.CountingCoins(Amount);
 
         }

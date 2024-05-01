@@ -107,14 +107,12 @@ public class DriveCar : MonoBehaviour
         {
             if (GameUIController.Instance.iSAccelratorApplied && FuelController.Instance.ISfuelAvilable)
             {
-                // BackTire.AddTorque(AccelaratorInput * Speed * Time.fixedDeltaTime);
-                // FrontTire.AddTorque(AccelaratorInput * Speed * Time.fixedDeltaTime);
-                // Car.AddTorque(AccelaratorInput * RotationSpeed * Time.fixedDeltaTime);
+
                 float forwardForce = AccelaratorInput * Accelaration * Time.fixedDeltaTime;
                 BackTire.AddForce(forwardForce * transform.right);
                 FrontTire.AddForce(forwardForce * transform.right);
                 Car.AddForce(forwardForce * transform.right);
-                Debug.LogError("forwardForce|" + forwardForce + "|velocity|" + BackTire.velocity + "::" + FrontTire.velocity + "::" + Car.velocity);
+                //Debug.LogError("forwardForce|" + forwardForce + "|velocity|" + BackTire.velocity + "::" + FrontTire.velocity + "::" + Car.velocity);
                 //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
                 BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
                 FrontTire.velocity = Vector2.ClampMagnitude(FrontTire.velocity, maxSpeedofCar);
@@ -124,10 +122,6 @@ public class DriveCar : MonoBehaviour
             }
             if (GameUIController.Instance.isbreakApplied && FuelController.Instance.ISfuelAvilable)
             {
-                // BackTire.AddTorque(BreakInput * Speed * Time.fixedDeltaTime);
-                // FrontTire.AddTorque(BreakInput - MoveInput * Speed * Time.fixedDeltaTime);
-                // Car.AddTorque(BreakInput * RotationSpeed * Time.fixedDeltaTime);
-
                 float breakForce = BreakInput * Accelaration * Time.fixedDeltaTime;
                 BackTire.AddForce(breakForce * transform.right);
                 FrontTire.AddForce(breakForce * transform.right);

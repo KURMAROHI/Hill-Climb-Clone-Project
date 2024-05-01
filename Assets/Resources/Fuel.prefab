@@ -105,7 +105,6 @@ GameObject:
   - component: {fileID: 3145729163686975937}
   - component: {fileID: 3145729163686975942}
   - component: {fileID: 3452183437996671286}
-  - component: {fileID: 4982889678068358877}
   - component: {fileID: 6681278097979331040}
   m_Layer: 2
   m_Name: Fuel
@@ -202,27 +201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6a4b67d1b00754092c881c237da35d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &4982889678068358877
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3145729163686975940}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ff96a88c4b6ce7648bb20ea299f7f1a2, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &6681278097979331040
 BoxCollider2D:
   m_ObjectHideFlags: 0
