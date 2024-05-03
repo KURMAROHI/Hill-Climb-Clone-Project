@@ -112,6 +112,9 @@ public class DriveCar : MonoBehaviour
                 BackTire.AddForce(forwardForce * transform.right);
                 FrontTire.AddForce(forwardForce * transform.right);
                 Car.AddForce(forwardForce * transform.right);
+                // BackTire.AddTorque(forwardForce*-1);
+                // FrontTire.AddTorque(forwardForce*-1);
+                // Car.AddTorque(forwardForce*-1);
                 //Debug.LogError("forwardForce|" + forwardForce + "|velocity|" + BackTire.velocity + "::" + FrontTire.velocity + "::" + Car.velocity);
                 //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
                 BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
