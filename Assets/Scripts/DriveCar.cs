@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 public class DriveCar : MonoBehaviour
 {
+
+    public static DriveCar Instance;
     [SerializeField] Rigidbody2D FrontTire;
     [SerializeField] Rigidbody2D BackTire;
     [SerializeField] Rigidbody2D Car;
@@ -23,10 +26,22 @@ public class DriveCar : MonoBehaviour
     [SerializeField] float Accelaration = 10f;
     [SerializeField] float deceleration = 10f;
 
+    float _Carposition;
+    public float Distancetravelled = 0f;
+
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
 
     void Start()
     {
+        _Carposition = transform.position.x;
         if (CoinController.Instance != null)
         {
             CoinController.Instance.CoinGenerator(92f);
@@ -40,6 +55,14 @@ public class DriveCar : MonoBehaviour
 
     void Update()
     {
+        if (_Carposition <= transform.position.x)
+        {
+            Distancetravelled += transform.position.x - _Carposition;
+            GameUIController.Instance.SetDistanceTravelled((int)Distancetravelled);
+            _Carposition = transform.position.x;
+        }
+
+
         if (Input.GetMouseButton(0))
         {
             //  StartCoroutine(TakeScreenShot());
@@ -101,8 +124,8 @@ public class DriveCar : MonoBehaviour
        //Car.AddTorque(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
         Car.AddForce(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
 #elif KK_UNITY_ANDROID
-
 #endif
+        CheckCarVelocity();
         if (GameUIController.Instance != null && FuelController.Instance != null)
         {
             if (GameUIController.Instance.iSAccelratorApplied && FuelController.Instance.ISfuelAvilable)
@@ -115,14 +138,16 @@ public class DriveCar : MonoBehaviour
                 // BackTire.AddTorque(forwardForce*-1);
                 // FrontTire.AddTorque(forwardForce*-1);
                 // Car.AddTorque(forwardForce*-1);
-                //Debug.LogError("forwardForce|" + forwardForce + "|velocity|" + BackTire.velocity + "::" + FrontTire.velocity + "::" + Car.velocity);
+                // Debug.LogError("Before forwardForce|" + forwardForce + "| B  velocity|" + BackTire.velocity.magnitude + "|F velocity|" + FrontTire.velocity.magnitude + "|C velocity|" + Car.velocity.magnitude);
                 //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
                 BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
                 FrontTire.velocity = Vector2.ClampMagnitude(FrontTire.velocity, maxSpeedofCar);
                 Car.velocity = Vector2.ClampMagnitude(Car.velocity, maxSpeedofCar);
+                //   Debug.Log("After forwardForce|" + forwardForce + "| B  velocity|" + BackTire.velocity.magnitude + "|F velocity|" + FrontTire.velocity.magnitude + "|C velocity|" + Car.velocity.magnitude);
                 currentposition = transform.position.x;
 
             }
+           ;
             if (GameUIController.Instance.isbreakApplied && FuelController.Instance.ISfuelAvilable)
             {
                 float breakForce = BreakInput * Accelaration * Time.fixedDeltaTime;
@@ -135,6 +160,13 @@ public class DriveCar : MonoBehaviour
             }
 
         }
+    }
+
+
+    void CheckCarVelocity()
+    {
+        //if (Car.velocity.magnitude < 1.0f)
+        //Debug.Log("===>" + Car.velocity.magnitude);
     }
 
 
