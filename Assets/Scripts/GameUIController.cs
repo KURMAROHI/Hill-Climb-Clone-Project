@@ -20,6 +20,10 @@ public class GameUIController : MonoBehaviour
 
     public bool iSAccelratorApplied = false, isbreakApplied = false;
 
+    [SerializeField] GameObject _Bar;
+
+    float ViewPortWidth;
+
     void Awake()
     {
         if (Instance == null)
@@ -33,7 +37,8 @@ public class GameUIController : MonoBehaviour
         _ContentYpos = _DistanceContent.anchoredPosition.y;
         _DistHorizantallayoutGroup = _DistanceContent.GetComponent<HorizontalLayoutGroup>();
         _Multiplier = _DistanceContent.GetChild(0).GetComponent<RectTransform>().rect.width / 100;
-        Debug.Log("==>" + _Multiplier);
+        ViewPortWidth = _DistanceContent.parent.GetComponent<RectTransform>().rect.width + 100f; //100f is An offset that i am Adding Extra
+
     }
 
 
@@ -86,12 +91,21 @@ public class GameUIController : MonoBehaviour
 
     }
 
+    int OldDistance = 0;
     public void SetDistanceTravelled(int Distancetravelled)
     {
-        //_DistancContent.anchoredPosition= new Vector2(-Distancetravelled, _DistancContent.anchoredPosition.y);
-        _DistanceContent.DOAnchorPosX(-Distancetravelled * 2, 0.1f).SetEase(Ease.Linear);
+
+        if (_DistanceContent.anchoredPosition.x < -(_DistanceContent.rect.width - ViewPortWidth))
+        {
+            Instantiate(_Bar, _DistanceContent);
+        }
+        if (OldDistance != Distancetravelled)
+        {
+            Debug.Log("Distnce travelled==>" + Distancetravelled);
+            OldDistance = Distancetravelled;
+            _DistanceContent.DOAnchorPosX(-Distancetravelled * 2, 0.1f).SetEase(Ease.Linear);
+        }
         _DistText.text = Distancetravelled.ToString();
-        // Debug.Log("Distnce travelled==>" + Distancetravelled);
     }
 }
 
