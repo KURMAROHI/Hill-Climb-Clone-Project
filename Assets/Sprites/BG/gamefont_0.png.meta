@@ -771,8 +771,8 @@ TextureImporter:
       name: gamefont_0_31
       rect:
         serializedVersion: 2
-        x: 237
-        y: 401
+        x: 233
+        y: 399
         width: 15
         height: 52
       alignment: 0
@@ -4068,12 +4068,12 @@ TextureImporter:
       name: gamefont_0_188
       rect:
         serializedVersion: 2
-        x: 2
-        y: 104
+        x: 0
+        y: 73
         width: 21
         height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5377933, y: 0.45822945}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4090,7 +4090,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 27
-        y: 105
+        y: 75
         width: 17
         height: 18
       alignment: 0
@@ -4110,8 +4110,8 @@ TextureImporter:
       name: gamefont_0_190
       rect:
         serializedVersion: 2
-        x: 46
-        y: 105
+        x: 50
+        y: 76
         width: 9
         height: 18
       alignment: 0
@@ -4194,12 +4194,12 @@ TextureImporter:
       name: gamefont_0_194
       rect:
         serializedVersion: 2
-        x: 58
-        y: 110
+        x: 67
+        y: 78
         width: 23
         height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.44866446, y: 0.3313239}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

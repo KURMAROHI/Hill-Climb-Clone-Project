@@ -141,8 +141,8 @@ TextureImporter:
       name: gamefont_lowres_1
       rect:
         serializedVersion: 2
-        x: 8
-        y: 225
+        x: 7
+        y: 224
         width: 13
         height: 31
       alignment: 0

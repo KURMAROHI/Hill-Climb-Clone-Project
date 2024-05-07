@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af7181f404f1447c0a7a17b3070b952b, type: 3}
-  m_Name: BG1
+  m_Name: BG2
   m_EditorClassIdentifier: 
   m_Angles:
   - m_Start: -109
     m_End: 104
-    m_Order: 1
+    m_Order: 5
     m_Sprites:
     - {fileID: 21300000, guid: 4faf757035de4ec4b89ee92457613635, type: 3}
   - m_Start: 104
