@@ -6,14 +6,14 @@ Font:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3
+  m_Name: CustomFont
   serializedVersion: 5
-  m_LineSpacing: 5
+  m_LineSpacing: 100
   m_DefaultMaterial: {fileID: 2100000, guid: 873f210a652136348b1bbc48d22c1ab9, type: 2}
   m_FontSize: 0
   m_Texture: {fileID: 0}
   m_AsciiStartOffset: 0
-  m_Tracking: 0.8
+  m_Tracking: 0.85
   m_CharacterSpacing: 50
   m_CharacterPadding: 0
   m_ConvertCase: 0
@@ -96,14 +96,14 @@ Font:
       y: 0
       width: 50
       height: 50
-    advance: 50
+    advance: 40
     flipped: 0
   - serializedVersion: 2
     index: 70
     uv:
       serializedVersion: 2
-      x: 0.906
-      y: 0.6
+      x: 0.908
+      y: 0.602
       width: 0.052
       height: -0.1
     vert:
@@ -112,7 +112,7 @@ Font:
       y: 0
       width: 50
       height: 50
-    advance: 50
+    advance: 40
     flipped: 0
   - serializedVersion: 2
     index: 71
@@ -160,7 +160,7 @@ Font:
       y: 0
       width: 50
       height: 50
-    advance: 50
+    advance: 20
     flipped: 0
   - serializedVersion: 2
     index: 74
@@ -320,7 +320,7 @@ Font:
       y: 0
       width: 50
       height: 50
-    advance: 50
+    advance: 45
     flipped: 0
   - serializedVersion: 2
     index: 84
@@ -368,7 +368,7 @@ Font:
       y: 0
       width: 50
       height: 50
-    advance: 50
+    advance: 55
     flipped: 0
   - serializedVersion: 2
     index: 87
@@ -384,7 +384,7 @@ Font:
       y: 0
       width: 50
       height: 50
-    advance: 50
+    advance: 55
     flipped: 0
   - serializedVersion: 2
     index: 88
@@ -423,7 +423,7 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.879
-      y: 0.7
+      y: 0.701
       width: 0.052
       height: -0.1
     vert:
@@ -439,7 +439,7 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.97
-      y: 1
+      y: 1.003
       width: 0.052
       height: -0.1
     vert:
@@ -448,7 +448,7 @@ Font:
       y: 0
       width: 50
       height: 50
-    advance: 50
+    advance: 25
     flipped: 0
   - serializedVersion: 2
     index: 50
@@ -471,7 +471,7 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.448
-      y: 0.685
+      y: 0.689
       width: 0.052
       height: -0.1
     vert:
@@ -480,14 +480,14 @@ Font:
       y: 0
       width: 50
       height: 50
-    advance: 50
+    advance: 45
     flipped: 0
   - serializedVersion: 2
     index: 52
     uv:
       serializedVersion: 2
       x: 0.1
-      y: 0.68
+      y: 0.685
       width: 0.052
       height: -0.1
     vert:
@@ -503,7 +503,7 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.138
-      y: 0.585
+      y: 0.591
       width: 0.052
       height: -0.1
     vert:
@@ -519,7 +519,7 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.187
-      y: 0.585
+      y: 0.591
       width: 0.052
       height: -0.1
     vert:
@@ -535,7 +535,7 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.233
-      y: 0.587
+      y: 0.591
       width: 0.052
       height: -0.1
     vert:
@@ -544,14 +544,14 @@ Font:
       y: 0
       width: 50
       height: 50
-    advance: 50
+    advance: 49
     flipped: 0
   - serializedVersion: 2
     index: 56
     uv:
       serializedVersion: 2
       x: 0.28
-      y: 0.587
+      y: 0.591
       width: 0.052
       height: -0.1
     vert:
@@ -567,7 +567,7 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.327
-      y: 0.587
+      y: 0.591
       width: 0.052
       height: -0.1
     vert:
@@ -577,6 +577,54 @@ Font:
       width: 50
       height: 50
     advance: 50
+    flipped: 0
+  - serializedVersion: 2
+    index: 48
+    uv:
+      serializedVersion: 2
+      x: 0.545
+      y: 0.688
+      width: 0.052
+      height: -0.1
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 50
+      height: 50
+    advance: 50
+    flipped: 0
+  - serializedVersion: 2
+    index: 109
+    uv:
+      serializedVersion: 2
+      x: 0.611
+      y: 0.419
+      width: 0.06
+      height: -0.07
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 50
+      height: 50
+    advance: 62
+    flipped: 0
+  - serializedVersion: 2
+    index: 32
+    uv:
+      serializedVersion: 2
+      x: 0.611
+      y: 0.419
+      width: 0.06
+      height: -0.07
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 50
+      height: 50
+    advance: 20
     flipped: 0
   m_KerningValues: []
   m_PixelScale: 0.1

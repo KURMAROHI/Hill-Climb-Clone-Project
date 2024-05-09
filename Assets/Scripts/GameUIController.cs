@@ -101,7 +101,7 @@ public class GameUIController : MonoBehaviour
         }
         if (OldDistance != Distancetravelled)
         {
-            Debug.Log("Distnce travelled==>" + Distancetravelled);
+           //` Debug.Log("Distnce travelled==>" + Distancetravelled);
             OldDistance = Distancetravelled;
             _DistanceContent.DOAnchorPosX(-Distancetravelled * 2, 0.1f).SetEase(Ease.Linear);
         }
