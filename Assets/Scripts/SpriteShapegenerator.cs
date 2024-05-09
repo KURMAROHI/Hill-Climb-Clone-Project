@@ -41,6 +41,8 @@ public class SpriteShapegenerator : MonoBehaviour
                 _spriteShapeController.spline.SetTangentMode(i, ShapeTangentMode.Continuous);
                 _spriteShapeController.spline.SetLeftTangent(i, new Vector3(-_lefttangetvalue, 0f, 0f));
                 _spriteShapeController.spline.SetRightTangent(i, new Vector3(_RightTangetValue, 0f, 0f));
+
+                // _spriteShapeController.spline.
             }
 
         }

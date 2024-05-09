@@ -11,7 +11,7 @@ public class CoinController : MonoBehaviour
     [SerializeField] List<GameObject> Coins = new List<GameObject>();
 
     [SerializeField] Text CoinText;
-    int NoofDigits;
+
 
 
 
@@ -38,11 +38,15 @@ public class CoinController : MonoBehaviour
         if (GameDataManager.Instance != null)
         {
 
-            string AmountString = GameDataManager.Instance._playerData.TotalAmount.ToString();
-            NoofDigits = AmountString.Length;
-            Debug.Log("TotalAmount|" + GameDataManager.Instance._playerData.TotalAmount + "::" + NoofDigits);
-            SpliString();
-            CoinText.text = GameDataManager.Instance._playerData.TotalAmount.ToString();
+
+            if (GameDataManager.Instance._playerData.TotalAmount > 999)
+            {
+                CoinText.text = SplitString();
+            }
+            else
+            {
+                CoinText.text = GameDataManager.Instance._playerData.TotalAmount.ToString();
+            }
         }
 
     }
@@ -54,8 +58,15 @@ public class CoinController : MonoBehaviour
         {
             // Debug.Log("TotalAmount|" + GameDataManager.Instance._playerData.TotalAmount);
             GameDataManager.Instance.SaveData(Amount);
-            CoinText.text = GameDataManager.Instance._playerData.TotalAmount.ToString();
-
+            if (GameDataManager.Instance._playerData.TotalAmount > 999)
+            {
+                CoinText.text = SplitString();
+            }
+            else
+            {
+                CoinText.text = GameDataManager.Instance._playerData.TotalAmount.ToString();
+            }
+            
         }
     }
 
@@ -90,23 +101,27 @@ public class CoinController : MonoBehaviour
     //     return Count;
     // }
 
-    void SpliString()
+    string SplitString()
     {
         string AmountString = GameDataManager.Instance._playerData.TotalAmount.ToString();
-        Debug.Log("Sub String|" + AmountString.Substring(0, 3) + "::" + AmountString.Length + "::" + NoofDigits / 3 + "::" + NoofDigits % 3);
+        int NoofDigits = AmountString.Length;
+       // Debug.Log("Sub String|" + AmountString.Substring(0, 3) + "::" + AmountString.Length + "::" + NoofDigits / 3 + "::" + NoofDigits % 3);
         string[] substrings = new string[(NoofDigits / 3) + 1];
         int index = NoofDigits % 3;
+        int Counter = 0;
         if (index != 0)
         {
+            Counter = 1;
             substrings[0] = AmountString.Substring(0, index);
         }
-        for (int i = 0; i < NoofDigits / 3; i++)
+        for (int i = Counter; i < (NoofDigits / 3) + Counter; i++)
         {
             substrings[i] = AmountString.Substring(index, 3);
-            Debug.Log("SubString|" + substrings[i]);
+          //  Debug.Log("SubString|" + substrings[i]);
             index += 3;
         }
-
+        //Debug.Log(" Total String|" + string.Join("  ", substrings));
+        return string.Join(" ", substrings);
     }
 
 }

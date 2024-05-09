@@ -544,7 +544,7 @@ Font:
       y: 0
       width: 50
       height: 50
-    advance: 49
+    advance: 45
     flipped: 0
   - serializedVersion: 2
     index: 56
