@@ -132,22 +132,22 @@ public class DriveCar : MonoBehaviour
             {
 
                 float forwardForce = AccelaratorInput * Accelaration * Time.fixedDeltaTime;
-                BackTire.AddForce(forwardForce * transform.right);
-                FrontTire.AddForce(forwardForce * transform.right);
-                Car.AddForce(forwardForce * transform.right);
-                // BackTire.AddTorque(forwardForce*-1);
-                // FrontTire.AddTorque(forwardForce*-1);
-                // Car.AddTorque(forwardForce*-1);
+                // BackTire.AddForce(forwardForce * transform.right);
+                // FrontTire.AddForce(forwardForce * transform.right);
+                // Car.AddForce(forwardForce * transform.right);
+                BackTire.AddTorque(forwardForce*-1);
+                FrontTire.AddTorque(forwardForce*-1);
+                Car.AddTorque(forwardForce*-1);
                 // Debug.LogError("Before forwardForce|" + forwardForce + "| B  velocity|" + BackTire.velocity.magnitude + "|F velocity|" + FrontTire.velocity.magnitude + "|C velocity|" + Car.velocity.magnitude);
                 //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
                 BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+                //.AddForce(forwardForce * transform.right);
                 FrontTire.velocity = Vector2.ClampMagnitude(FrontTire.velocity, maxSpeedofCar);
                 Car.velocity = Vector2.ClampMagnitude(Car.velocity, maxSpeedofCar);
                 //   Debug.Log("After forwardForce|" + forwardForce + "| B  velocity|" + BackTire.velocity.magnitude + "|F velocity|" + FrontTire.velocity.magnitude + "|C velocity|" + Car.velocity.magnitude);
                 currentposition = transform.position.x;
 
             }
-           ;
             if (GameUIController.Instance.isbreakApplied && FuelController.Instance.ISfuelAvilable)
             {
                 float breakForce = BreakInput * Accelaration * Time.fixedDeltaTime;
