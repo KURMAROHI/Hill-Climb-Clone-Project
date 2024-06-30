@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -11,12 +12,7 @@ public class DriveCar : MonoBehaviour
     public static DriveCar Instance;
     [SerializeField] Rigidbody2D FrontTire;
     [SerializeField] Rigidbody2D BackTire;
-    [SerializeField] Rigidbody2D Car;
-
-    [SerializeField] float Speed = 200f;
-    [SerializeField] float RotationSpeed = 100f;
-
-    [SerializeField] float MoveInput;
+    [SerializeField] public Rigidbody2D Car;
     [SerializeField] float AccelaratorInput, BreakInput;
 
     int FuelCount = 1;
@@ -92,6 +88,51 @@ public class DriveCar : MonoBehaviour
             oldcoinpos = oldcoinpos + 50f;
             CoinController.Instance.CoinGenerator(oldcoinpos);
         }
+
+
+
+
+        #if KK_UNITY_WINDOWs
+        BackTire.AddTorque(-MoveInput * Speed * Time.deltaTime);
+        FrontTire.AddTorque(-MoveInput * Speed * Time.deltaTime);
+       //Car.AddTorque(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
+        Car.AddForce(-MoveInput * RotationSpeed * Time.deltaTime);
+#elif KK_UNITY_ANDROID
+#endif
+        CheckCarVelocity();
+        if (GameUIController.Instance != null && FuelController.Instance != null)
+        {
+            if (GameUIController.Instance.iSAccelratorApplied && FuelController.Instance.ISfuelAvilable)
+            {
+
+                float forwardForce = AccelaratorInput * Accelaration * Time.deltaTime;
+                BackTire.AddTorque(forwardForce * -1);
+                FrontTire.AddTorque(forwardForce * -1);
+                Car.AddTorque(forwardForce * -1);
+                // Debug.LogError("Before forwardForce|" + forwardForce + "| B  velocity|" + BackTire.velocity.magnitude + "|F velocity|" + FrontTire.velocity.magnitude + "|C velocity|" + Car.velocity.magnitude);
+                //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
+                BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+                //.AddForce(forwardForce * transform.right);
+                FrontTire.velocity = Vector2.ClampMagnitude(FrontTire.velocity, maxSpeedofCar);
+                Car.velocity = Vector2.ClampMagnitude(Car.velocity, maxSpeedofCar);
+                //   Debug.Log("After forwardForce|" + forwardForce + "| B  velocity|" + BackTire.velocity.magnitude + "|F velocity|" + FrontTire.velocity.magnitude + "|C velocity|" + Car.velocity.magnitude);
+                currentposition = transform.position.x;
+
+            }
+            if (GameUIController.Instance.isbreakApplied && FuelController.Instance.ISfuelAvilable)
+            {
+
+                float breakForce = BreakInput * Accelaration * Time.deltaTime;
+                BackTire.AddForce(breakForce * transform.right);
+                FrontTire.AddForce(breakForce * transform.right);
+                Car.AddForce(breakForce * transform.right);
+                //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
+                BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+                FrontTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+                Car.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+            }
+
+        }
     }
 
 
@@ -115,52 +156,51 @@ public class DriveCar : MonoBehaviour
     [Header("Distance TO move Back variable")]
     [SerializeField] float DistanceMovedback = 50f;
     float currentposition = 50f;
-    void FixedUpdate()
-    {
+//     void Update()
+//     {
 
-#if KK_UNITY_WINDOWs
-        BackTire.AddTorque(-MoveInput * Speed * Time.fixedDeltaTime);
-        FrontTire.AddTorque(-MoveInput * Speed * Time.fixedDeltaTime);
-       //Car.AddTorque(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
-        Car.AddForce(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
-#elif KK_UNITY_ANDROID
-#endif
-        CheckCarVelocity();
-        if (GameUIController.Instance != null && FuelController.Instance != null)
-        {
-            if (GameUIController.Instance.iSAccelratorApplied && FuelController.Instance.ISfuelAvilable)
-            {
+// #if KK_UNITY_WINDOWs
+//         BackTire.AddTorque(-MoveInput * Speed * Time.fixedDeltaTime);
+//         FrontTire.AddTorque(-MoveInput * Speed * Time.fixedDeltaTime);
+//        //Car.AddTorque(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
+//         Car.AddForce(-MoveInput * RotationSpeed * Time.fixedDeltaTime);
+// #elif KK_UNITY_ANDROID
+// #endif
+//         CheckCarVelocity();
+//         if (GameUIController.Instance != null && FuelController.Instance != null)
+//         {
+//             if (GameUIController.Instance.iSAccelratorApplied && FuelController.Instance.ISfuelAvilable)
+//             {
 
-                float forwardForce = AccelaratorInput * Accelaration * Time.fixedDeltaTime;
-                // BackTire.AddForce(forwardForce * transform.right);
-                // FrontTire.AddForce(forwardForce * transform.right);
-                // Car.AddForce(forwardForce * transform.right);
-                BackTire.AddTorque(forwardForce*-1);
-                FrontTire.AddTorque(forwardForce*-1);
-                Car.AddTorque(forwardForce*-1);
-                // Debug.LogError("Before forwardForce|" + forwardForce + "| B  velocity|" + BackTire.velocity.magnitude + "|F velocity|" + FrontTire.velocity.magnitude + "|C velocity|" + Car.velocity.magnitude);
-                //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
-                BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
-                //.AddForce(forwardForce * transform.right);
-                FrontTire.velocity = Vector2.ClampMagnitude(FrontTire.velocity, maxSpeedofCar);
-                Car.velocity = Vector2.ClampMagnitude(Car.velocity, maxSpeedofCar);
-                //   Debug.Log("After forwardForce|" + forwardForce + "| B  velocity|" + BackTire.velocity.magnitude + "|F velocity|" + FrontTire.velocity.magnitude + "|C velocity|" + Car.velocity.magnitude);
-                currentposition = transform.position.x;
+//                 float forwardForce = AccelaratorInput * Accelaration * Time.fixedDeltaTime;
+//                 BackTire.AddTorque(forwardForce * -1);
+//                 FrontTire.AddTorque(forwardForce * -1);
+//                 Car.AddTorque(forwardForce * -1);
+//                 // Debug.LogError("Before forwardForce|" + forwardForce + "| B  velocity|" + BackTire.velocity.magnitude + "|F velocity|" + FrontTire.velocity.magnitude + "|C velocity|" + Car.velocity.magnitude);
+//                 //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
+//                 BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+//                 //.AddForce(forwardForce * transform.right);
+//                 FrontTire.velocity = Vector2.ClampMagnitude(FrontTire.velocity, maxSpeedofCar);
+//                 Car.velocity = Vector2.ClampMagnitude(Car.velocity, maxSpeedofCar);
+//                 //   Debug.Log("After forwardForce|" + forwardForce + "| B  velocity|" + BackTire.velocity.magnitude + "|F velocity|" + FrontTire.velocity.magnitude + "|C velocity|" + Car.velocity.magnitude);
+//                 currentposition = transform.position.x;
 
-            }
-            if (GameUIController.Instance.isbreakApplied && FuelController.Instance.ISfuelAvilable)
-            {
-                float breakForce = BreakInput * Accelaration * Time.fixedDeltaTime;
-                BackTire.AddForce(breakForce * transform.right);
-                FrontTire.AddForce(breakForce * transform.right);
-                //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
-                BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
-                FrontTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+//             }
+//             if (GameUIController.Instance.isbreakApplied && FuelController.Instance.ISfuelAvilable)
+//             {
 
-            }
+//                 float breakForce = BreakInput * Accelaration * Time.fixedDeltaTime;
+//                 BackTire.AddForce(breakForce * transform.right);
+//                 FrontTire.AddForce(breakForce * transform.right);
+//                 Car.AddForce(breakForce * transform.right);
+//                 //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
+//                 BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+//                 FrontTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+//                 Car.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+//             }
 
-        }
-    }
+//         }
+//     }
 
 
     void CheckCarVelocity()
