@@ -56,7 +56,6 @@ public class CoinController : MonoBehaviour
         // Debug.Log("Counting Coins");
         if (GameDataManager.Instance != null)
         {
-            // Debug.Log("TotalAmount|" + GameDataManager.Instance._playerData.TotalAmount);
             GameDataManager.Instance.SaveData(Amount);
             if (GameDataManager.Instance._playerData.TotalAmount > 999)
             {

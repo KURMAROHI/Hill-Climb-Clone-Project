@@ -25,7 +25,8 @@ public class DriveCar : MonoBehaviour
     float _Carposition;
     public float Distancetravelled = 0f;
 
-
+    public bool IsStartMoving=false;  // the variable using For Camera Movemnet  After USer Starts playing the Camera Conditions 
+    //Offset Conditiomns Will Apply that Are in void Update Function
     void Awake()
     {
         if (Instance == null)
@@ -104,7 +105,7 @@ public class DriveCar : MonoBehaviour
         {
             if (GameUIController.Instance.iSAccelratorApplied && FuelController.Instance.ISfuelAvilable)
             {
-
+                IsStartMoving=true;
                 float forwardForce = AccelaratorInput * Accelaration * Time.deltaTime;
                 BackTire.AddTorque(forwardForce * -1);
                 FrontTire.AddTorque(forwardForce * -1);
@@ -121,11 +122,11 @@ public class DriveCar : MonoBehaviour
             }
             if (GameUIController.Instance.isbreakApplied && FuelController.Instance.ISfuelAvilable)
             {
-
-                float breakForce = BreakInput * Accelaration * Time.deltaTime;
-                BackTire.AddForce(breakForce * transform.right);
-                FrontTire.AddForce(breakForce * transform.right);
-                Car.AddForce(breakForce * transform.right);
+                IsStartMoving=true;
+                float breakForce = BreakInput * deceleration * Time.deltaTime;
+                BackTire.AddTorque(breakForce * -1);
+                FrontTire.AddTorque(breakForce * -1);
+                Car.AddTorque(breakForce *- 1);
                 //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
                 BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
                 FrontTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
