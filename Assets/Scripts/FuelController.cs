@@ -9,7 +9,7 @@ public class FuelController : MonoBehaviour
     public static FuelController Instance;
     [SerializeField] Image _FuelImage;
 
-    [Range(0.1f, 5f)]
+    [Range(0.1f, 20f)]
     [SerializeField] float fuelDrainSpeed = 1f;
 
     [SerializeField] float MaxFuelAmount = 100f;
@@ -54,7 +54,7 @@ public class FuelController : MonoBehaviour
         }
         FuelLowSignal.alpha = 0f;
         isfading = false;
-       // Debug.LogError("Fuel Full Event Calling");
+        // Debug.LogError("Fuel Full Event Calling");
         CurrentFuelAmount = MaxFuelAmount;
         UpdateFuelUI();
     }
@@ -68,6 +68,11 @@ public class FuelController : MonoBehaviour
         {
             CurrentFuelAmount -= Time.deltaTime * fuelDrainSpeed;
             UpdateFuelUI();
+        }
+        else if (PlayerPrefs.GetInt("OnGameEnd", 0) == 0)
+        {
+            PlayerPrefs.SetInt("OnGameEnd", 1);
+            DriveCar.Instance.IsStartMoving = false;
         }
     }
 
