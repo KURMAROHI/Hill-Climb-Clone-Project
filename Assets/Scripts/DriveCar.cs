@@ -124,19 +124,16 @@ public class DriveCar : MonoBehaviour
             {
                 IsStartMoving = true;
                 float breakForce = BreakInput * deceleration * Time.deltaTime;
-                BackTire.AddTorque(breakForce * -1);
-                FrontTire.AddTorque(breakForce * -1);
-                Car.AddTorque(breakForce * -1);
-                //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
-                BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
-                FrontTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
-                Car.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+                BackTire.AddTorque(breakForce*-1);
+                FrontTire.AddTorque(breakForce*-1);
+                Car.AddTorque(breakForce*-1);
             }
 
         }
 
         if (PlayerPrefs.GetInt("OnGameEnd", 0) == 1)
         {
+            PlayerPrefs.SetInt("OnGameEnd", 2);
             CollisionChek.HeadCollision?.Invoke();
         }
     }

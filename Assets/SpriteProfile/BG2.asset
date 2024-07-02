@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: BG2
   m_EditorClassIdentifier: 
   m_Angles:
-  - m_Start: -109
-    m_End: 104
+  - m_Start: -128
+    m_End: 125
     m_Order: 0
     m_Sprites:
     - {fileID: 21300000, guid: 4faf757035de4ec4b89ee92457613635, type: 3}
-  - m_Start: 104
-    m_End: 251
+  - m_Start: 125
+    m_End: 232
     m_Order: 0
     m_Sprites: []
   m_FillTexture: {fileID: 2800000, guid: d1dfc61c6de3b8242a4d1d8b977b21eb, type: 3}

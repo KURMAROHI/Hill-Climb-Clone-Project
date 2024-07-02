@@ -17,13 +17,12 @@ public class CollisionChek : MonoBehaviour
         // Debug.Log("==>" + col.gameObject.name);
         if (col.gameObject.CompareTag("Head"))
         {
-            Debug.Log("Done yaar");
             if (PlayerPrefs.GetInt("OnGameEnd", 0) == 0)
             {
+                Debug.Log("===>Done yaar");
                 PlayerPrefs.SetInt("OnGameEnd", 1);
                 FuelController.Instance.ISfuelAvilable = false;
                 DriveCar.Instance.IsStartMoving = false;
-                // HeadCollision?.Invoke();
             }
 
         }
@@ -39,8 +38,5 @@ public class CollisionChek : MonoBehaviour
     }
 
 
-    // void EndTheGame()
-    // {
 
-    // }
 }

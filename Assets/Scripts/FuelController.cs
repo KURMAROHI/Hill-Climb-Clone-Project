@@ -83,13 +83,13 @@ public class FuelController : MonoBehaviour
 
         if (_FuelImage.fillAmount == 0f)
         {
+            ISfuelAvilable = false;
             if (Lowfueltween != null)
             {
                 Lowfueltween.Kill();
             }
             FuelLowSignal.alpha = 0f;
             Debug.LogError("fuel over");
-            ISfuelAvilable = false;
             if (Input.GetMouseButton(0))
             {
                 StartCoroutine(TakeScreenShot());

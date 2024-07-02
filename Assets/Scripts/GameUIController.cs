@@ -25,7 +25,7 @@ public class GameUIController : MonoBehaviour
     float ViewPortWidth;
 
     [SerializeField] RenderTexture renderTexture;
-    public Image UIScreenShotImage;
+    public Sprite UIScreenShotImage;
     [SerializeField] RectTransform _rectTransform;
 
     void Awake()
@@ -59,7 +59,6 @@ public class GameUIController : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         Time.timeScale = 0f;
-        PlayerPrefs.SetInt("OnGameEnd", 2);
         StartCoroutine("TakeScreenShot");
     }
 
@@ -70,18 +69,13 @@ public class GameUIController : MonoBehaviour
         RenderTexture.active = renderTexture;
         int _Width = Screen.width;
         int _Height = Screen.height;
-        // Texture2D texture = new Texture2D(400, 400, TextureFormat.ARGB32, false);
-        // texture.ReadPixels(_rectTransform.rect, 0, 0);
         Texture2D texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.ARGB32, false);
         texture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
         texture.Apply();
-
         byte[] bytearray = texture.EncodeToPNG();
         System.IO.File.WriteAllBytes(Application.dataPath + "/NewScreenShot.png", bytearray);
-
         RenderTexture.active = currentActiveRT;
-        UIScreenShotImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
-        UIScreenShotImage.gameObject.SetActive(true);
+        UIScreenShotImage = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
     }
 
     void Start()

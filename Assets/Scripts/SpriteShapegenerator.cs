@@ -6,11 +6,10 @@ using UnityEngine.U2D;
 public class SpriteShapegenerator : MonoBehaviour
 {
     [SerializeField] SpriteShapeController _spriteShapeController;
-    [SerializeField][Range(1f, 1000f)] int levellenegth = 50;
-    [SerializeField][Range(1f, 100f)] float _Xmultiplier = 2;
+    [SerializeField][Range(1f, 1000f)] int levellenegth = 20;
     [SerializeField][Range(1f, 100f)] float DistanceBetweenPoints =10;
     [SerializeField][Range(1f, 100f)] float _ymultiplier = 15;
-    [SerializeField][Range(0f, 1f)] float CurveSmoothNess = 0;
+
 
     [SerializeField] float NoiseStep = 0.5f;
 
@@ -26,8 +25,8 @@ public class SpriteShapegenerator : MonoBehaviour
         //_spriteShapeController.spline.Clear();
 
         //Debug.Log("point At 2|" + _spriteShapeController.spline.GetPosition(2) + "|::|" + _spriteShapeController.spline.GetPosition(3));
-        _spriteShapeController.spline.SetPosition(0, _spriteShapeController.spline.GetPosition(0) + new Vector3(-1f, -1f, 0f) * 70f);
-        _spriteShapeController.spline.SetPosition(3, _spriteShapeController.spline.GetPosition(3) + new Vector3(1f, -1f, 0f) * 70f);
+        _spriteShapeController.spline.SetPosition(0, _spriteShapeController.spline.GetPosition(0) + new Vector3(0f, -1f, 0f) * 50f);
+        _spriteShapeController.spline.SetPosition(3, _spriteShapeController.spline.GetPosition(3) + new Vector3(0f, -1f, 0f) * 50f);
         _spriteShapeController.spline.SetPosition(2, _spriteShapeController.spline.GetPosition(2) + Vector3.right * levellenegth * DistanceBetweenPoints);
         _spriteShapeController.spline.SetPosition(3, _spriteShapeController.spline.GetPosition(3) + Vector3.right * levellenegth * DistanceBetweenPoints);
         //  _spriteShapeController.spline.SetPosition(0, _spriteShapeController.spline.GetPosition(0) + new Vector3(-1,10f,0));
@@ -47,6 +46,8 @@ public class SpriteShapegenerator : MonoBehaviour
 
                 // _spriteShapeController.spline.
             }
+
+
 
         }
 
