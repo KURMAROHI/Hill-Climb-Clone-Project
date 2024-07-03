@@ -17,9 +17,9 @@ public class ScreenShotAnimation : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnContinueButtonClick()
     {
-
+        Debug.Log("On Continue Button Click");
     }
+
 }
