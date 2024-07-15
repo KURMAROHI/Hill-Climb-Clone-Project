@@ -26,7 +26,10 @@ public class GameUIController : MonoBehaviour
 
     [SerializeField] RenderTexture renderTexture;
     public Sprite UIScreenShotImage;
-    [SerializeField] RectTransform _rectTransform;
+    [SerializeField] Transform GameCompleteCanvas;
+    [SerializeField] GameObject BgFuelControl;
+
+    bool IsScreenShottaken=false;
 
     void Awake()
     {
@@ -60,10 +63,20 @@ public class GameUIController : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         Time.timeScale = 0f;
         StartCoroutine("TakeScreenShot");
+        yield return new WaitUntil(()=>IsScreenShottaken);
+        IsScreenShottaken=false;
+        Debug.Log("===>1");
+       
+      //  BgFuelControl.transform.DOScale(new Vector3(2f,2f,2f),0.5f).SetEase(Ease.Linear).OnComplete(()=>{
+        GameObject ScreenShotGameobject=Instantiate(Resources.Load<GameObject>("ScreenShotParent"),GameCompleteCanvas);
+        Debug.Log("===>2");
+       // });
+        Debug.Log("===>3");
     }
-
+    
     IEnumerator TakeScreenShot()
     {
+        IsScreenShottaken=false;
         yield return new WaitForEndOfFrame();
         RenderTexture currentActiveRT = RenderTexture.active;
         RenderTexture.active = renderTexture;
@@ -76,6 +89,7 @@ public class GameUIController : MonoBehaviour
         System.IO.File.WriteAllBytes(Application.dataPath + "/NewScreenShot.png", bytearray);
         RenderTexture.active = currentActiveRT;
         UIScreenShotImage = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
+        IsScreenShottaken=true;
     }
 
     void Start()
