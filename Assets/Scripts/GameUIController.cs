@@ -29,7 +29,8 @@ public class GameUIController : MonoBehaviour
     [SerializeField] Transform GameCompleteCanvas;
     [SerializeField] GameObject BgFuelControl;
 
-    bool IsScreenShottaken=false;
+
+    bool IsScreenShottaken = false;
 
     void Awake()
     {
@@ -61,22 +62,26 @@ public class GameUIController : MonoBehaviour
     IEnumerator GameEndAnimation()
     {
         yield return new WaitForSeconds(1.5f);
-        Time.timeScale = 0f;
+        DriveCar.Instance.Car.velocity = Vector2.zero;
+        DriveCar.Instance.Car.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+        DriveCar.Instance.BackTire.freezeRotation = true;
+        DriveCar.Instance.FrontTire.freezeRotation = true;
+        DriveCar.Instance.Car.bodyType = RigidbodyType2D.Static;
         StartCoroutine("TakeScreenShot");
-        yield return new WaitUntil(()=>IsScreenShottaken);
-        IsScreenShottaken=false;
-        Debug.Log("===>1");
-       
-      //  BgFuelControl.transform.DOScale(new Vector3(2f,2f,2f),0.5f).SetEase(Ease.Linear).OnComplete(()=>{
-        GameObject ScreenShotGameobject=Instantiate(Resources.Load<GameObject>("ScreenShotParent"),GameCompleteCanvas);
-        Debug.Log("===>2");
-       // });
-        Debug.Log("===>3");
+        yield return new WaitUntil(() => IsScreenShottaken);
+        IsScreenShottaken = false;
+        BgFuelControl.transform.DOScale(new Vector3(2f, 2f, 2f), 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+
+            GameObject ScreenShotGameobject = Instantiate(Resources.Load<GameObject>("ScreenShotParent"), GameCompleteCanvas);
+        });
     }
-    
+
+
+
     IEnumerator TakeScreenShot()
     {
-        IsScreenShottaken=false;
+        IsScreenShottaken = false;
         yield return new WaitForEndOfFrame();
         RenderTexture currentActiveRT = RenderTexture.active;
         RenderTexture.active = renderTexture;
@@ -89,7 +94,7 @@ public class GameUIController : MonoBehaviour
         System.IO.File.WriteAllBytes(Application.dataPath + "/NewScreenShot.png", bytearray);
         RenderTexture.active = currentActiveRT;
         UIScreenShotImage = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
-        IsScreenShottaken=true;
+        IsScreenShottaken = true;
     }
 
     void Start()

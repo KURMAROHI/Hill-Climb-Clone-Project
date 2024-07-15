@@ -10,8 +10,8 @@ public class DriveCar : MonoBehaviour
 {
 
     public static DriveCar Instance;
-    [SerializeField] Rigidbody2D FrontTire;
-    [SerializeField] Rigidbody2D BackTire;
+    [SerializeField] public Rigidbody2D FrontTire;
+    [SerializeField] public Rigidbody2D BackTire;
     [SerializeField] public Rigidbody2D Car;
     [SerializeField] float AccelaratorInput, BreakInput;
 
