@@ -27,8 +27,7 @@ public class ScreenShotAnimation : MonoBehaviour
             SetSequneceAnimation();
         });
     }
-
-
+    Tweener tween = null;
     void SetSequneceAnimation()
     {
         TitleDriverDown.gameObject.SetActive(true);
@@ -57,7 +56,7 @@ public class ScreenShotAnimation : MonoBehaviour
                                    ContinueButton.gameObject.SetActive(true);
                                    ContinueButton.DORotate(new Vector3(0, 0, 0f), 0.4f).SetEase(Ease.Linear).OnComplete(() =>
                                    {
-                                       ContinueButtontext.GetComponent<CanvasGroup>().DOFade(0.1f, 1f).SetEase(Ease.OutQuint).SetLoops(-1, LoopType.Yoyo);
+                                       tween = ContinueButtontext.GetComponent<CanvasGroup>().DOFade(0.1f, 1f).SetEase(Ease.OutQuint).SetLoops(-1, LoopType.Yoyo);
                                    });
 
                                });
@@ -74,7 +73,11 @@ public class ScreenShotAnimation : MonoBehaviour
     {
         Debug.Log("On Continue Button Click");
         //SceneManager.GetSceneByBuildIndex(0).
-        DOTween.KillAll();
+       // DOTween.KillAll();
+        if (tween.IsActive())
+        {
+            tween.Kill();
+        }
         SceneManager.LoadScene(0);
     }
 

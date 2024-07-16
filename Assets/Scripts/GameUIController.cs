@@ -90,8 +90,8 @@ public class GameUIController : MonoBehaviour
         Texture2D texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.ARGB32, false);
         texture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
         texture.Apply();
-        byte[] bytearray = texture.EncodeToPNG();
-        System.IO.File.WriteAllBytes(Application.dataPath + "/NewScreenShot.png", bytearray);
+        // byte[] bytearray = texture.EncodeToPNG();
+        // System.IO.File.WriteAllBytes(Application.dataPath + "/NewScreenShot.png", bytearray);
         RenderTexture.active = currentActiveRT;
         UIScreenShotImage = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
         IsScreenShottaken = true;
@@ -107,6 +107,7 @@ public class GameUIController : MonoBehaviour
     }
 
 
+    [SerializeField] float breakForce = 500f;
     public void AcceleratorBreakPointerDown(BaseEventData data)
     {
         // Debug.Log("onpointer Down");
@@ -117,6 +118,9 @@ public class GameUIController : MonoBehaviour
             BreakNormal.gameObject.SetActive(false);
             BreakPressed.gameObject.SetActive(true);
             isbreakApplied = true;
+            // DriveCar.Instance.BackTire.AddTorque(breakForce * -1);
+            // DriveCar.Instance.FrontTire.AddTorque(breakForce * -1);
+            //DriveCar.Instance.Car.AddTorque(breakForce * 1);
 
         }
         else if (_pointerEventData.position.x > Screen.width / 2 + 100f && _pointerEventData.position.x < Screen.width)

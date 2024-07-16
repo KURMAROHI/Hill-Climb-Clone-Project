@@ -17329,6 +17329,7 @@ MonoBehaviour:
   UIScreenShotImage: {fileID: 0}
   GameCompleteCanvas: {fileID: 630005894}
   BgFuelControl: {fileID: 1324060098}
+  breakForce: -700
 --- !u!1 &1506810023
 GameObject:
   m_ObjectHideFlags: 0
