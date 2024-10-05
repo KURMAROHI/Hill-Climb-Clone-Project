@@ -92,7 +92,7 @@ public class DriveCar : MonoBehaviour
         Car.AddForce(-MoveInput * RotationSpeed * Time.deltaTime);
 #elif KK_UNITY_ANDROID
 #endif
-        CheckCarVelocity();
+        //CheckCarVelocity();
         if (GameUIController.Instance != null && FuelController.Instance != null)
         {
             if (GameUIController.Instance.iSAccelratorApplied && FuelController.Instance.ISfuelAvilable)

@@ -8,7 +8,7 @@ public class CoinPositionScript : MonoBehaviour
 
 
     // public static event Action FuelFullEvent;
-    // public static event Action<int> CoinCountEvent;
+     //public static event Action<int> CoinCountEvent;
 
 
     void Start()
