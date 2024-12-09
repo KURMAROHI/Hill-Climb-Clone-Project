@@ -104,10 +104,10 @@ public class DriveCar : MonoBehaviour
                 Car.AddTorque(forwardForce * -1);
                 // Debug.LogError("Before forwardForce|" + forwardForce + "| B  velocity|" + BackTire.velocity.magnitude + "|F velocity|" + FrontTire.velocity.magnitude + "|C velocity|" + Car.velocity.magnitude);
                 //Clampmagnitude Will Clamp the magnitude values To the Given Parameter
-                BackTire.velocity = Vector2.ClampMagnitude(BackTire.velocity, maxSpeedofCar);
+                BackTire.linearVelocity = Vector2.ClampMagnitude(BackTire.linearVelocity, maxSpeedofCar);
                 //.AddForce(forwardForce * transform.right);
-                FrontTire.velocity = Vector2.ClampMagnitude(FrontTire.velocity, maxSpeedofCar);
-                Car.velocity = Vector2.ClampMagnitude(Car.velocity, maxSpeedofCar);
+                FrontTire.linearVelocity = Vector2.ClampMagnitude(FrontTire.linearVelocity, maxSpeedofCar);
+                Car.linearVelocity = Vector2.ClampMagnitude(Car.linearVelocity, maxSpeedofCar);
                 //   Debug.Log("After forwardForce|" + forwardForce + "| B  velocity|" + BackTire.velocity.magnitude + "|F velocity|" + FrontTire.velocity.magnitude + "|C velocity|" + Car.velocity.magnitude);
                 currentposition = transform.position.x;
 

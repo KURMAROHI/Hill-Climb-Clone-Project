@@ -62,7 +62,7 @@ public class GameUIController : MonoBehaviour
     IEnumerator GameEndAnimation()
     {
         yield return new WaitForSeconds(1.5f);
-        DriveCar.Instance.Car.velocity = Vector2.zero;
+        DriveCar.Instance.Car.linearVelocity = Vector2.zero;
         DriveCar.Instance.Car.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         DriveCar.Instance.BackTire.freezeRotation = true;
         DriveCar.Instance.FrontTire.freezeRotation = true;
