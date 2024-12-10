@@ -5,47 +5,51 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class MenuPanel : MonoBehaviour
 {
 
-   public Scrollbar _ScroollBar;
-   [SerializeField] Transform Content;
-   float[] pos;
-   float Distance;
-   float Scroll_updatedPos = 0;
-   public void OnValueChanged(Vector2 a)
-   {
-      // Debug.Log("onvalue Changed|" + a.x + ", " + a.y);
-   }
+   public Scrollbar ScroollBar;
+   public float LerpDuration = 0.4f;
+   public float Thresold = 0.01f;
 
-   void Awake()
-   {
 
-      pos = new float[Content.childCount];
-      Distance = 1f / (pos.Length - 1f);
-      for (int i = 0; i < pos.Length; i++)
+
+   [SerializeField] private Transform _content;
+   [SerializeField] private Vector3 _hightLighScale;
+   private float _distance;
+   private float[] _pos;
+   private float Scroll_updatedPos = 0;
+   private float _elapsedTime = 0f;
+   private float _previousValue;
+   private Vector3 _actualScale;
+   private float _scale = 0.5f;
+   private float _scrollBarVelocity;
+
+
+   private void Awake()
+   {
+      _pos = new float[_content.childCount];
+      _distance = 1f / (_pos.Length - 1f);
+      for (int i = 0; i < _pos.Length; i++)
       {
-         pos[i] = Distance * i;
+         _pos[i] = _distance * i;
       }
-
-      previousVlaue = _ScroollBar.value;
+      _previousValue = ScroollBar.value;
+      _actualScale = _content.GetChild(1).localScale;
+      _hightLighScale = _actualScale + Vector3.one;
    }
 
 
-   public float lerpDuration = 0.4f;
-   public float thresold = 0.01f;
 
-   private float elapsedTime = 0f;
-   float previousVlaue;
-   float ScrollBarVelocity;
    void Update()
    {
-      float DeltaVlaue = Mathf.Abs(_ScroollBar.value - previousVlaue);
-      ScrollBarVelocity = DeltaVlaue / Time.deltaTime;
+      float DeltaVlaue = Mathf.Abs(ScroollBar.value - _previousValue);
+      _scrollBarVelocity = DeltaVlaue / Time.deltaTime;
       //Debug.Log("==>" + _ScroollBar.value + "::" + pos.Length + "::" + (DeltaVlaue / Time.deltaTime));
-      previousVlaue = _ScroollBar.value;
+      _previousValue = ScroollBar.value;
 
 
 
@@ -55,8 +59,8 @@ public class MenuPanel : MonoBehaviour
 #if KK_UNITY_WINDOWS || UNITY_EDITOR
       if (Input.GetMouseButton(0))
       {
-         elapsedTime = 0f;
-         Scroll_updatedPos = _ScroollBar.value;
+         _elapsedTime = 0f;
+         Scroll_updatedPos = ScroollBar.value;
       }
 #elif KK_UNITY_ANDROID
       if(Input.touchCount>0)
@@ -72,21 +76,21 @@ public class MenuPanel : MonoBehaviour
 #endif
       else
       {
-         for (int i = 0; i < pos.Length; i++)
+         for (int i = 0; i < _pos.Length; i++)
          {
-            if (Scroll_updatedPos < pos[i] + (Distance / 2) && Scroll_updatedPos > pos[i] - (Distance / 2))
+            if (Scroll_updatedPos < _pos[i] + (_distance / 2) && Scroll_updatedPos > _pos[i] - (_distance / 2))
             {
 
-               if (elapsedTime < lerpDuration && ScrollBarVelocity <= thresold)
+               if (_elapsedTime < LerpDuration && _scrollBarVelocity <= Thresold)
                {
-                  elapsedTime += Time.deltaTime;
-                  float t = elapsedTime / lerpDuration;
+                  _elapsedTime += Time.deltaTime;
+                  float t = _elapsedTime / LerpDuration;
                   t = Mathf.Clamp01(t);
-                  _ScroollBar.value = Mathf.Lerp(_ScroollBar.value, pos[i], t);
+                  ScroollBar.value = Mathf.Lerp(ScroollBar.value, _pos[i], t);
                }
                else
                {
-                  Scroll_updatedPos = _ScroollBar.value;
+                  Scroll_updatedPos = ScroollBar.value;
                }
             }
          }
@@ -95,15 +99,15 @@ public class MenuPanel : MonoBehaviour
 
       //For Sclaingup And Down if Condition meets means its At the Desired position So We increase the Size
       // After Move From Center We Scaling Down to vector3.one Normal Size
-      for (int i = 0; i < pos.Length; i++)
+      for (int i = 0; i < _pos.Length; i++)
       {
-         if (Scroll_updatedPos < pos[i] + (Distance / 2) && Scroll_updatedPos > pos[i] - (Distance / 2))
+         if (Scroll_updatedPos < _pos[i] + (_distance / 2) && Scroll_updatedPos > _pos[i] - (_distance / 2))
          {
-            Content.GetChild(i).localScale = Vector2.Lerp(Content.GetChild(i).localScale, new Vector2(1.5f, 1.5f), 0.1f);
+            _content.GetChild(i).localScale = Vector2.Lerp(_content.GetChild(i).localScale, _hightLighScale, 0.1f);
          }
          else
          {
-            Content.GetChild(i).localScale = Vector2.Lerp(Content.GetChild(i).localScale, Vector2.one, 0.1f);
+            _content.GetChild(i).localScale = Vector2.Lerp(_content.GetChild(i).localScale, _actualScale, 0.1f);
          }
       }
 
