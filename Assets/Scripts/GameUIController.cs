@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -118,10 +118,6 @@ public class GameUIController : MonoBehaviour
             BreakNormal.gameObject.SetActive(false);
             BreakPressed.gameObject.SetActive(true);
             isbreakApplied = true;
-            // DriveCar.Instance.BackTire.AddTorque(breakForce * -1);
-            // DriveCar.Instance.FrontTire.AddTorque(breakForce * -1);
-            //DriveCar.Instance.Car.AddTorque(breakForce * 1);
-
         }
         else if (_pointerEventData.position.x > Screen.width / 2 + 100f && _pointerEventData.position.x < Screen.width)
         {
