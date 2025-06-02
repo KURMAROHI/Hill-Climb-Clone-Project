@@ -1,8 +1,15 @@
-# HillClimb Clone Projcet
-This is my first personal project, a Hill Climb Clone, where I explored Unity's physics system, Sprite Shape Controller, and terrain generation. Currently, the game features only one terrain and one vehicle, but I plan to expand it by adding more vehicles and terrains in the future.
+# Hill Climb Clone
 
-This project showcases my understanding of:
- 1)2D physics-based vehicle movement
- 2)Procedural terrain generation
- 3)Smooth camera movement
- 4)Using JSON for storing and managing collected coins data
+A 2D hill climbing game made in Unity that uses physics-based vehicle mechanics and dynamic terrain generation using Sprite Shape Controller.
+
+## Features
+- Realistic car movement using 2D physics
+- Dynamic terrain with Sprite Shape Controller
+- JSON-based save system for progress and coins
+- Screenshot sharing feature using Render Texture
+- Lightweight and mobile-friendly design
+
+## Getting Started
+1. Clone the repo  
+2. Open in Unity 2022.3+  
+3. Play and start driving!
